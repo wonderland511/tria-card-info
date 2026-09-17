@@ -79,14 +79,7 @@ tr:last-child td{border-bottom:0}
 ul.risks{padding-left:20px;margin:0}
 ul.risks li{margin-bottom:8px}
 
-.check{background:var(--sheet);border-radius:10px;padding:8px 16px}
-.check label{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
-.check label:last-child{border-bottom:0}
-.check input{width:20px;height:20px;margin-top:3px;accent-color:var(--ok);flex:none}
-.check input:checked + span{color:var(--muted);text-decoration:line-through}
-
 footer{margin-top:48px;font-size:14px;color:var(--muted)}
-footer ul{padding-left:18px}
 </style>
 </head>
 <body>
@@ -133,14 +126,6 @@ footer ul{padding-left:18px}
     <li><strong>Дождитесь физической карты</strong><span>Придёт уведомление, введите адрес и имя латиницей.</span></li>
   </ol>
 
-  <h2>Сколько ждать</h2>
-  <div class="table-wrap"><table>
-    <tr><th>Этап</th><th>Срок</th></tr>
-    <tr><td>Регистрация и заявка</td><td>около 15 минут</td></tr>
-    <tr><td>Проверка документов</td><td>обычно минуты, при очереди до ~10 дней, в редких случаях до 2 месяцев</td></tr>
-    <tr><td>Виртуальная карта</td><td>сразу после одобрения</td></tr>
-  </table></div>
-
   <h2>Цены и комиссии</h2>
   <div class="table-wrap"><table>
     <tr><th>Тариф</th><th>В год</th><th>Кешбэк (USDC/USDT)</th></tr>
@@ -161,26 +146,8 @@ footer ul{padding-left:18px}
     <li><strong>Нет IBAN.</strong> Приложение в Google Play оценено примерно на 2 из 5.</li>
   </ul>
 
-  <h2>Чек-лист перед оплатой</h2>
-  <div class="check">
-    <label><input type="checkbox"><span>Моя страна проживания открывается к оплате в приложении</span></label>
-    <label><input type="checkbox"><span>Документ выдан этой же страной (или Sumsub принимает мой местный документ)</span></label>
-    <label><input type="checkbox"><span>Номер телефона этой страны</span></label>
-    <label><input type="checkbox"><span>Я физически нахожусь там, VPN выключен</span></label>
-    <label><input type="checkbox"><span>Имя введено точно как в документе</span></label>
-    <label><input type="checkbox"><span>Начинаю с Virtual за $25</span></label>
-  </div>
-
   <footer>
     <p>Эмитент международной карты: Nimbus, LLC (Делавэр, США), инфраструктура Rain, право Пуэрто-Рико. Tria (Threely Dimensions Inc.) не банк. Это не финансовая консультация.</p>
-    <p>Источники:</p>
-    <ul>
-      <li><a href="https://docs.tria.so/card-terms-international">Tria: условия международной карты</a></li>
-      <li><a href="https://help.tria.so/en/articles/14056678-how-to-get-a-tria-card">Tria: как получить карту</a></li>
-      <li><a href="https://note.com/tria_official/n/n055434828d91">Tria: FAQ по проверке и платежам</a></li>
-      <li><a href="https://www.cryptocardhub.com/card/tria-card">CryptoCardHub: обзор, август 2026</a></li>
-      <li><a href="https://kkinvesting.io/en/posts/tria-card-review/">KK Investing: обзор, май 2026</a></li>
-    </ul>
   </footer>
 </main>
 </body>
