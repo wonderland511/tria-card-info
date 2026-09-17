@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tria Card: можно ли открыть и с какими документами</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDF0F3; --sheet:#FFFFFF; --ink:#1B2A41; --muted:#5A6778;
+  --line:#CBD3DC; --ok:#1F7A55; --okbg:#E3F2EA; --warn:#9A6212; --warnbg:#FBF0DC;
+  --bad:#A8322A; --badbg:#F8E4E1; --stamp:#2B4C7E;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#10161F; --sheet:#18212D; --ink:#E4E9EF; --muted:#9AA7B6;
+    --line:#2E3A49; --ok:#5CC495; --okbg:#15302A; --warn:#E3AE5B; --warnbg:#33281A;
+    --bad:#EE857B; --badbg:#3A1F1D; --stamp:#8FB0E3;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#10161F; --sheet:#18212D; --ink:#E4E9EF; --muted:#9AA7B6;
+  --line:#2E3A49; --ok:#5CC495; --okbg:#15302A; --warn:#E3AE5B; --warnbg:#33281A;
+  --bad:#EE857B; --badbg:#3A1F1D; --stamp:#8FB0E3;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 17px/1.6 "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:40px 20px 64px}
+h1,h2{font-family:"Unbounded","Onest",system-ui,sans-serif;line-height:1.2;margin:0}
+h1{font-size:clamp(28px,6vw,42px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:21px;font-weight:500;margin:48px 0 14px}
+p{margin:0 0 12px}
+a{color:var(--stamp)}
+a:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--stamp);outline-offset:2px}
+.lead{color:var(--muted);margin-top:14px;max-width:62ch}
+.date{color:var(--muted);font-size:14px;margin-top:6px}
+
+/* the rule */
+.rule{margin-top:32px;background:var(--sheet);border:2px solid var(--stamp);border-radius:14px;padding:22px}
+.rule h2{margin:0 0 16px;font-size:18px}
+.eq{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.eq span{border:1.5px dashed var(--stamp);border-radius:8px;padding:8px 12px;font-weight:500}
+.eq b{color:var(--stamp);font-size:22px;font-weight:700}
+.rule p{margin:16px 0 0;color:var(--muted)}
+
+/* verdict rows */
+.cases{display:grid;gap:10px}
+.case{display:grid;grid-template-columns:110px 1fr;gap:14px;background:var(--sheet);border-radius:10px;padding:14px 16px;border-left:5px solid}
+.case .tag{font-weight:700;font-size:14px;padding-top:2px}
+.case.ok{border-color:var(--ok)} .case.ok .tag{color:var(--ok)}
+.case.warn{border-color:var(--warn)} .case.warn .tag{color:var(--warn)}
+.case.bad{border-color:var(--bad)} .case.bad .tag{color:var(--bad)}
+.case strong{display:block;margin-bottom:2px}
+.case p{margin:0;color:var(--muted);font-size:15.5px}
+@media (max-width:520px){.case{grid-template-columns:1fr;gap:4px}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}
+.chips span{font-size:14px;padding:3px 10px;border-radius:99px}
+.chips.ok span{background:var(--okbg);color:var(--ok)}
+.chips.bad span{background:var(--badbg);color:var(--bad)}
+
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 16px 46px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;
+  background:var(--stamp);color:var(--sheet);font-weight:700;display:grid;place-items:center;font-size:15px}
+ol.steps li strong{display:block}
+ol.steps li span{color:var(--muted);font-size:15.5px}
+
+.table-wrap{overflow-x:auto;background:var(--sheet);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:460px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:500;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+
+ul.risks{padding-left:20px;margin:0}
+ul.risks li{margin-bottom:8px}
+
+.check{background:var(--sheet);border-radius:10px;padding:8px 16px}
+.check label{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.check label:last-child{border-bottom:0}
+.check input{width:20px;height:20px;margin-top:3px;accent-color:var(--ok);flex:none}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+
+footer{margin-top:48px;font-size:14px;color:var(--muted)}
+footer ul{padding-left:18px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Tria Card: открыть с филиппинскими документами</h1>
+  <p class="lead">Коротко: можно, если Филиппины совпадают во всём. Карта американская, это кредитная Visa под залог вашей крипты.</p>
+  <p class="date">Сверено 17 сентября 2026. Перед оплатой перепроверьте в приложении.</p>
+
+  <section class="rule" aria-labelledby="rule">
+    <h2 id="rule">Главное правило проверки</h2>
+    <div class="eq" role="img" aria-label="Страна документа равна стране проживания, равна стране телефона, равна стране, откуда проходите проверку">
+      <span>Страна документа</span><b>=</b><span>Страна проживания</span><b>=</b><span>Номер телефона</span><b>=</b><span>Где вы физически</span>
+    </div>
+    <p>Гражданство само по себе не важно. Проверку блокируют по IP, если вы не в выбранной стране, а VPN ведёт к отказу. Эта страна должна быть в списке поддерживаемых.</p>
+  </section>
+
+  <h2>Ваш случай: документы Филиппин</h2>
+  <div class="cases">
+    <div class="case ok"><div class="tag">Одобрят</div><div>
+      <strong>Живёте на Филиппинах</strong>
+      <p>Филиппинский паспорт или ID, филиппинский номер, проверку проходите там же.</p></div></div>
+    <div class="case warn"><div class="tag">Подождать</div><div>
+      <strong>Выбрали Филиппины, но сейчас за границей</strong>
+      <p>Проверку по IP не пропустят. Пройдите её, когда вернётесь.</p></div></div>
+    <div class="case bad"><div class="tag">Скорее отказ</div><div>
+      <strong>Живёте в другой стране с паспортом Филиппин</strong>
+      <p>Паспорт родной страны могут не принять. Нужны местные документы (ВНЖ, ID), местный номер, и страна должна поддерживаться.</p></div></div>
+  </div>
+
+  <h2>Если документы другой страны</h2>
+  <p>Правило то же. Подходят паспорт, ID-карта или водительские права плюс селфи. Для пластика и металла могут попросить подтверждение адреса. Какие документы принимаются для вашей страны, смотрите на <a href="https://sumsub.com/supported-documents/">sumsub.com/supported-documents</a>.</p>
+  <p><strong>Доступны</strong> (по агрегатору CryptoCardHub, полный список только в приложении), в том числе:</p>
+  <div class="chips ok"><span>Филиппины</span><span>Казахстан</span><span>Кыргызстан</span><span>Узбекистан</span><span>Таджикистан</span><span>Армения</span><span>Грузия</span><span>Азербайджан</span><span>Молдова</span><span>Сербия</span><span>Черногория</span><span>ОАЭ</span><span>Таиланд</span><span>Индонезия</span><span>ЕС и Великобритания</span></div>
+  <p><strong>Недоступны:</strong></p>
+  <div class="chips bad"><span>Россия</span><span>Беларусь</span><span>Украина</span><span>Турция</span><span>Израиль</span><span>Индия</span><span>Китай</span><span>Вьетнам</span><span>Непал</span><span>Иран</span><span>Ирак</span><span>Сирия</span><span>Куба</span><span>Венесуэла</span><span>КНДР</span></div>
+  <p>Граждане США не могут оформить международную карту. Если паспорт из запрещённой страны, а живёте в поддерживаемой, спросите поддержку до оплаты: надёжных отзывов по таким случаям нет.</p>
+
+  <h2>Как открыть</h2>
+  <ol class="steps">
+    <li><strong>Выберите карту и страну проживания</strong><span>В приложении нажмите «Apply Now». Если страна поддерживается, сразу откроется оплата.</span></li>
+    <li><strong>Оплатите выпуск</strong><span>Криптой или банковской картой. При оплате картой придёт письмо с 10-значным промокодом, его нужно ввести в приложении (проверьте спам).</span></li>
+    <li><strong>Пройдите проверку (Sumsub)</strong><span>Данные, фото документа, селфи. Имя пишите точно как в документе, без VPN.</span></li>
+    <li><strong>Пополните и платите</strong><span>Виртуальная карта активируется сразу после одобрения. Добавьте её в Apple Pay или Google Pay.</span></li>
+    <li><strong>Дождитесь физической карты</strong><span>Придёт уведомление, введите адрес и имя латиницей.</span></li>
+  </ol>
+
+  <h2>Сколько ждать</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Этап</th><th>Срок</th></tr>
+    <tr><td>Регистрация и заявка</td><td>около 15 минут</td></tr>
+    <tr><td>Проверка документов</td><td>обычно минуты, при очереди до ~10 дней, в редких случаях до 2 месяцев</td></tr>
+    <tr><td>Виртуальная карта</td><td>сразу после одобрения</td></tr>
+    <tr><td>Пластик или металл</td><td>обычно 2–4 недели, отправка партиями и не во все страны</td></tr>
+  </table></div>
+
+  <h2>Цены и комиссии</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Тариф</th><th>В год</th><th>Кешбэк (USDC/USDT)</th></tr>
+    <tr><td>Virtual</td><td>$25 (иногда показывают $0)</td><td>1.5% на первые $100/мес, дальше 0.5%</td></tr>
+    <tr><td>Signature, пластик</td><td>$109</td><td>4.5% на первые $1 000/мес, дальше 1%</td></tr>
+    <tr><td>Premium, металл</td><td>$250</td><td>6% на первые $2 000/мес, дальше 1%</td></tr>
+  </table></div>
+  <p style="margin-top:12px">Конвертация валюты до 3% по договору (в приложении заявляют меньше). Банкомат от $1 + 1% до $2 + 3%, не больше $750 за раз и 3 снятий в сутки, выбирайте счёт «Credit». Пополнение от $10 ($50 в BTC), дешевле всего в USDC/USDT. Кешбэк приходит с задержкой в месяцы, у каждой награды есть срок получения.</p>
+
+  <h2>Риски и блокировки</h2>
+  <ul class="risks">
+    <li><strong>Оплата до проверки.</strong> При отказе деньги не возвращают, поэтому начинайте с Virtual.</li>
+    <li><strong>Могут заблокировать без предупреждения.</strong> Особенно за покупку крипты, ставки, P2P-переводы и пополнение других кошельков. Массовых историй заморозки не найдено.</li>
+    <li><strong>Крипта в кошельке ваша</strong>, но деньги на балансе карты зависят от эмитента и могут не выводиться обратно. Пополняйте только под ближайшие траты.</li>
+    <li><strong>Ликвидация залога</strong>, если долг не закрыт за 1 день или залог подешевел. На стейблкоинах риск минимален.</li>
+    <li><strong>Один человек — одна карта.</strong> Пересоздать аккаунт на то же имя нельзя. Самому повторить проверку можно только 2 раза.</li>
+    <li><strong>Иностранная карта:</strong> часть магазинов её не принимает. Возврат за неудачную операцию до 31 рабочего дня.</li>
+    <li><strong>Нет IBAN.</strong> Приложение в Google Play оценено примерно на 2 из 5.</li>
+  </ul>
+
+  <h2>Чек-лист перед оплатой</h2>
+  <div class="check">
+    <label><input type="checkbox"><span>Моя страна проживания открывается к оплате в приложении</span></label>
+    <label><input type="checkbox"><span>Документ выдан этой же страной (или Sumsub принимает мой местный документ)</span></label>
+    <label><input type="checkbox"><span>Номер телефона этой страны</span></label>
+    <label><input type="checkbox"><span>Я физически нахожусь там, VPN выключен</span></label>
+    <label><input type="checkbox"><span>Имя введено точно как в документе</span></label>
+    <label><input type="checkbox"><span>Начинаю с Virtual за $25</span></label>
+  </div>
+
+  <footer>
+    <p>Эмитент международной карты: Nimbus, LLC (Делавэр, США), инфраструктура Rain, право Пуэрто-Рико. Tria (Threely Dimensions Inc.) не банк. Это не финансовая консультация.</p>
+    <p>Источники:</p>
+    <ul>
+      <li><a href="https://docs.tria.so/card-terms-international">Tria: условия международной карты</a></li>
+      <li><a href="https://help.tria.so/en/articles/14056678-how-to-get-a-tria-card">Tria: как получить карту</a></li>
+      <li><a href="https://note.com/tria_official/n/n055434828d91">Tria: FAQ по проверке и платежам</a></li>
+      <li><a href="https://www.cryptocardhub.com/card/tria-card">CryptoCardHub: обзор, август 2026</a></li>
+      <li><a href="https://kkinvesting.io/en/posts/tria-card-review/">KK Investing: обзор, май 2026</a></li>
+    </ul>
+  </footer>
+</main>
+</body>
+</html>
